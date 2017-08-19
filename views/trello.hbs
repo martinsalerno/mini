@@ -1,0 +1,55 @@
+ 
+  <h1> {{ id }} </h1>
+  <p> trello to {{ id }} </p>
+
+  <input id="auth" type="button" value="Autorizar" onclick="autorizar();" />
+  <input id="new" type="button" value="Nueva card" onclick="createDummy();"/>
+  <input id="move" type="button" value="Mover card" onclick="moverCard();"/>
+  <input id="move" type="button" value="Datos card" onclick="datosCard();"/>
+<script>
+
+function autorizar() {
+  var authenticationSuccess = function() {
+    console.log('Successful authentication');
+  };
+  var authenticationFailure = function() {
+    console.log('Failed authentication');
+  };
+  window.Trello.authorize({
+    type: 'popup',
+    name: 'Martin Salerno MiniProject',
+    scope: {
+      read: 'true',
+      write: 'true' },
+    persist: true,
+    expiration: 'never',
+    success: authenticationSuccess,
+    error: authenticationFailure
+  });
+}
+
+ function creationSuccess (data) {
+    console.log('Card created successfully.');
+    console.log(JSON.stringify(data, null, 2));
+};
+
+function createDummy() {
+  var myList = '5996f82164e5af9d42cab24d';
+  var newCard = {
+    name: 'Card creada a manopla', 
+    desc: 'Card que fue creada hardcodeadamente',
+    idList: myList,
+    pos: 'top'
+  };
+  window.Trello.post('/cards/', newCard, var lastCard = creationSuccess);
+}
+
+moverCard = function () {
+
+}
+
+function datosCard() {
+	console.log(lastCard);
+}
+
+</script>
